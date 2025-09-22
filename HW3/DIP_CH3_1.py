@@ -42,8 +42,8 @@ cdf = hist.cumsum()
 cdf_normalized = cdf / cdf[-1] * 255
 
 # step 4 : apply equalization
-iamge_equ = np.interp(image_norm.flatten(), bins[:-1], cdf_normalized)
-iamge_equ = iamge_equ.reshape(image.shape).astype(np.uint8)
+image_equ = np.interp(image_norm.flatten(), bins[:-1], cdf_normalized)
+image_equ = image_equ.reshape(image.shape).astype(np.uint8)
 
 # Step 5: Visualization
 plt.figure(figsize=(12,6))
@@ -51,17 +51,53 @@ plt.figure(figsize=(12,6))
 # left : equalized image
 plt.subplot(1, 2, 1)
 plt.title("Equalized Image")
-plt.imshow(iamge_equ, cmap="gray")
+plt.imshow(image_equ, cmap="gray")
 plt.axis("off")
 
 # right plot : histogram of equalized image
 plt.subplot(1, 2, 2)
 plt.title("Histogram after equalization")
-plt.hist(iamge_equ.flatten(), bins=256, color="gray")
+plt.hist(image_equ.flatten(), bins=256, color="gray")
 plt.xlabel("Pixel Intensity")
 plt.ylabel("Occurrences")
 
 plt.tight_layout()
 plt.show()
 
-### Question 3 : demonstrate the histogram after "specification" pz(zq) = c.zq^0.4
+### Question 3 : demonstrate the histogram after "specification" pz(zq) = c*zq^0.4
+# step 1 : normalization
+
+# step 2 : input histogram + CDF, where hist and bins came from image_norm
+cdf_in = hist.cumsum() / hist.sum()  # normalize to [0,1], 
+s_k = np.rint(cdf_in * 255).astype(np.uint8) 
+
+# step 3: target distribution pz(z) = c * z^0.4
+zq = np.linspace(0, 255, 256)
+pz = (zq + 1e-6)**0.4
+pz /= pz.sum()  
+cdf_target = np.cumsum(pz)
+qz_G = np.rint(cdf_target * 255).astype(np.uint8) 
+
+# step 4: mapping to closet pixel value
+mapping = np.searchsorted(qz_G, s_k, side="left")
+mapping = np.clip(mapping, 0, 255).astype(np.uint8)
+
+# step 5 : apply specification
+image_spec = mapping[image_norm]
+
+# step 6 : visualization
+plt.figure(figsize=(12,6))
+
+plt.subplot(1, 2, 1)
+plt.title("Image after specification")
+plt.imshow(image_spec, cmap="gray")
+plt.axis("off")
+
+plt.subplot(1, 2, 2)
+plt.title("Histogram after specification")
+plt.hist(image_spec.flatten(), bins=256, color="gray")
+plt.xlabel("Pixel Intensity")
+plt.ylabel("Occurrences")
+
+plt.tight_layout()
+plt.show()
