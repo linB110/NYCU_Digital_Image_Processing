@@ -72,6 +72,7 @@ This assignment focuses on **Highboost Filtering** using **Sobel** and **Laplaci
 * `fish.jpg`
 * Python code for Highboost filtering using Sobel and Laplacian operators.
 
+---
 
 ### DIP Homework 4-2: Fast Fourier Transform
 
@@ -89,3 +90,7 @@ Remove high‑frequency periodic interference / moiré by transforming the image
 * `astronaut-interference.tif`
 * `car-moire-pattern.tif`
 python code for denoise unwanted noise in frequency domain
+
+---
+
+
