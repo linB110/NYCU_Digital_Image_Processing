@@ -6,7 +6,7 @@ def image_fft_band_reject(
     w_centers=(480, 530),  
     h_centers=(390, 442),
     expand=4,             
-    method="two_1d",       # "two_1d" 或 "fft2"
+    method="two_1d",       # "two_1d" or "fft2"
     show=True
 ):
    
@@ -111,4 +111,3 @@ if __name__ == "__main__":
     method="fft2",
     show=True
 )
-
