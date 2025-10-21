@@ -71,3 +71,21 @@ This assignment focuses on **Highboost Filtering** using **Sobel** and **Laplaci
 * `bodybone.bmp`
 * `fish.jpg`
 * Python code for Highboost filtering using Sobel and Laplacian operators.
+
+
+### DIP Homework 4-2: Fast Fourier Transform
+
+**Description:**
+Remove high‑frequency periodic interference / moiré by transforming the image to the frequency domain, identifying interference peaks, applying notch (band‑reject) filtering, and reconstructing via IFFT.
+
+**Tasks**
+
+1. Display the original image and the log amplitude spectrum (use fftshift and percentile contrast stretching for visibility).
+2. Design a band‑reject (notch) mask around the interference peaks (manual selection or programmatic detection).
+3. Multiply the complex spectrum by the mask, then perform IFFT to obtain the restored image.
+4. Comment on the visual improvement (stripe removal vs. detail loss) and list the parameters you used.
+
+**Files**
+* `astronaut-interference.tif`
+* `car-moire-pattern.tif`
+python code for denoise unwanted noise in frequency domain
